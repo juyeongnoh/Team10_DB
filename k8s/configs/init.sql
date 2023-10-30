@@ -23,19 +23,20 @@ FLUSH PRIVILEGES;
 USE `krampoline`;
 
 # db 예시
-# DROP TABLE IF EXISTS `sample_data`;
-# CREATE TABLE `sample_data`
-# (
-#     `id`     int(11)      NOT NULL AUTO_INCREMENT,
-#     `detail` varchar(100) NOT NULL,
-#     PRIMARY KEY (`id`)
-# ) ENGINE = InnoDB
-#   AUTO_INCREMENT = 3
-#   DEFAULT CHARSET = utf8mb4
-#   COLLATE = utf8mb4_general_ci;
-#
-# INSERT INTO sample_data (`id`, `detail`)
-# VALUES ('1', 'Hello DKOS!');
+DROP TABLE IF EXISTS `sample_data`;
+CREATE TABLE `sample_data`
+(
+    `id`     int(11)      NOT NULL AUTO_INCREMENT,
+    `detail` varchar(100) NOT NULL,
+    PRIMARY KEY (`id`)
+) ENGINE = InnoDB
+  AUTO_INCREMENT = 3
+  DEFAULT CHARSET = utf8mb4
+  COLLATE = utf8mb4_general_ci;
+
+INSERT INTO sample_data (`id`, `detail`)
+VALUES ('1', 'Hi DKOS!');
+
 
 
 DROP TABLE IF EXISTS `bay`;
