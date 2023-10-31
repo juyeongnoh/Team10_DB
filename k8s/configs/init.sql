@@ -23,36 +23,77 @@ FLUSH PRIVILEGES;
 USE `krampoline`;
 
 # db 예시
-DROP TABLE IF EXISTS `sample_data`;
-CREATE TABLE `sample_data`
+# DROP TABLE IF EXISTS `sample_data`;
+# CREATE TABLE `sample_data`
+# (
+#     `id`     int(11)      NOT NULL AUTO_INCREMENT,
+#     `detail` varchar(100) NOT NULL,
+#     PRIMARY KEY (`id`)
+# ) ENGINE = InnoDB
+#   AUTO_INCREMENT = 3
+#   DEFAULT CHARSET = utf8mb4
+#   COLLATE = utf8mb4_general_ci;
+#
+# INSERT INTO sample_data (`id`, `detail`)
+# VALUES ('1', 'Hello DKOS!');
+
+--
+-- Table structure for table `member`
+--
+
+DROP TABLE IF EXISTS `member`;
+/*!40101 SET @saved_cs_client = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `member`
 (
-    `id`     int(11)      NOT NULL AUTO_INCREMENT,
-    `detail` varchar(100) NOT NULL,
+    `id`       bigint       NOT NULL AUTO_INCREMENT,
+    `email`    varchar(100) NOT NULL,
+    `password` varchar(255) NOT NULL,
+    `role`     varchar(30)  NOT NULL,
+    `tel`      varchar(50)  NOT NULL,
+    `username` varchar(45)  NOT NULL,
+    PRIMARY KEY (`id`),
+    UNIQUE KEY `UK_mbmcqelty0fbrvxp1q58dn57t` (`email`)
+) ENGINE = InnoDB
+  AUTO_INCREMENT = 266
+  DEFAULT CHARSET = utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `location`
+--
+
+DROP TABLE IF EXISTS `location`;
+/*!40101 SET @saved_cs_client = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `location`
+(
+    `id`        bigint       NOT NULL AUTO_INCREMENT,
+    `address`   varchar(255) NOT NULL,
+    `latitude`  double       NOT NULL,
+    `longitude` double       NOT NULL,
+    `place`     varchar(255) NOT NULL,
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   AUTO_INCREMENT = 3
-  DEFAULT CHARSET = utf8mb4
-  COLLATE = utf8mb4_general_ci;
+  DEFAULT CHARSET = utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-INSERT INTO sample_data (`id`, `detail`)
-VALUES ('1', 'Hi DKOS!');
+--
+-- Table structure for table `keyword`
+--
 
-
-
-DROP TABLE IF EXISTS `bay`;
+DROP TABLE IF EXISTS `keyword`;
 /*!40101 SET @saved_cs_client = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `bay`
+CREATE TABLE `keyword`
 (
-    `id`      bigint NOT NULL AUTO_INCREMENT,
-    `bay_num` int    NOT NULL,
-    `status`  int    NOT NULL,
-    `w_id`    bigint NOT NULL,
-    PRIMARY KEY (`id`),
-    KEY `FKhx2jqki7s1v6yj6o2yx79l0xr` (`w_id`),
-    CONSTRAINT `FKhx2jqki7s1v6yj6o2yx79l0xr` FOREIGN KEY (`w_id`) REFERENCES `carwash` (`id`)
+    `id`   bigint      NOT NULL AUTO_INCREMENT,
+    `name` varchar(50) NOT NULL,
+    `type` int         NOT NULL,
+    PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
-  AUTO_INCREMENT = 11
+  AUTO_INCREMENT = 4
   DEFAULT CHARSET = utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -80,6 +121,24 @@ CREATE TABLE `carwash`
     CONSTRAINT `FKo1d3t3rmqywidgkft9lpv8lh5` FOREIGN KEY (`l_id`) REFERENCES `location` (`id`)
 ) ENGINE = InnoDB
   AUTO_INCREMENT = 3
+  DEFAULT CHARSET = utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+
+DROP TABLE IF EXISTS `bay`;
+/*!40101 SET @saved_cs_client = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `bay`
+(
+    `id`      bigint NOT NULL AUTO_INCREMENT,
+    `bay_num` int    NOT NULL,
+    `status`  int    NOT NULL,
+    `w_id`    bigint NOT NULL,
+    PRIMARY KEY (`id`),
+    KEY `FKhx2jqki7s1v6yj6o2yx79l0xr` (`w_id`),
+    CONSTRAINT `FKhx2jqki7s1v6yj6o2yx79l0xr` FOREIGN KEY (`w_id`) REFERENCES `carwash` (`id`)
+) ENGINE = InnoDB
+  AUTO_INCREMENT = 11
   DEFAULT CHARSET = utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -128,65 +187,6 @@ CREATE TABLE `file`
   DEFAULT CHARSET = utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Table structure for table `keyword`
---
-
-DROP TABLE IF EXISTS `keyword`;
-/*!40101 SET @saved_cs_client = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `keyword`
-(
-    `id`   bigint      NOT NULL AUTO_INCREMENT,
-    `name` varchar(50) NOT NULL,
-    `type` int         NOT NULL,
-    PRIMARY KEY (`id`)
-) ENGINE = InnoDB
-  AUTO_INCREMENT = 4
-  DEFAULT CHARSET = utf8mb3;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Table structure for table `location`
---
-
-DROP TABLE IF EXISTS `location`;
-/*!40101 SET @saved_cs_client = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `location`
-(
-    `id`        bigint       NOT NULL AUTO_INCREMENT,
-    `address`   varchar(255) NOT NULL,
-    `latitude`  double       NOT NULL,
-    `longitude` double       NOT NULL,
-    `place`     varchar(255) NOT NULL,
-    PRIMARY KEY (`id`)
-) ENGINE = InnoDB
-  AUTO_INCREMENT = 3
-  DEFAULT CHARSET = utf8mb3;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Table structure for table `member`
---
-
-DROP TABLE IF EXISTS `member`;
-/*!40101 SET @saved_cs_client = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `member`
-(
-    `id`       bigint       NOT NULL AUTO_INCREMENT,
-    `email`    varchar(100) NOT NULL,
-    `password` varchar(255) NOT NULL,
-    `role`     varchar(30)  NOT NULL,
-    `tel`      varchar(50)  NOT NULL,
-    `username` varchar(45)  NOT NULL,
-    PRIMARY KEY (`id`),
-    UNIQUE KEY `UK_mbmcqelty0fbrvxp1q58dn57t` (`email`)
-) ENGINE = InnoDB
-  AUTO_INCREMENT = 266
-  DEFAULT CHARSET = utf8mb3;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Table structure for table `optime`
@@ -288,20 +288,11 @@ CREATE TABLE `review_keyword`
   AUTO_INCREMENT = 19
   DEFAULT CHARSET = utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
-SET @@SESSION.SQL_LOG_BIN = @MYSQLDUMP_TEMP_LOG_BIN;
-/*!40103 SET TIME_ZONE = @OLD_TIME_ZONE */;
-
-/*!40101 SET SQL_MODE = @OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS = @OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS = @OLD_UNIQUE_CHECKS */;
-/*!40101 SET CHARACTER_SET_CLIENT = @OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS = @OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION = @OLD_COLLATION_CONNECTION */;
-/*!40111 SET SQL_NOTES = @OLD_SQL_NOTES */;
 
 -- Dump completed on 2023-10-30 15:43:01
 -- 모든 제약 조건 비활성화
 SET FOREIGN_KEY_CHECKS = 0;
+
 truncate table bay;
 truncate table carwash;
 truncate table file;
@@ -332,6 +323,23 @@ VALUES ('1', '전일 카 세차장', '광주 북구 용주로30번길 36', 35.18
        ('4', '에코 세차', '광주 서구 풍암운리로29번길 4-1', 35.1236239635137, 126.867258708128),
        ('5', '컴인워시 강남본점', '서울 강남구 삼성로 567', 37.5121009265405, 127.0533894042);
 
+-- Keyword Data
+INSERT INTO keyword (`id`, `name`, `type`)
+VALUES ('1', '하부세차', '1'),
+       ('2', '개러지형 독립공간', '1'),
+       ('3', '사장님이 친절해요', '2'),
+       ('4', '100% 수돗물', '1'),
+       ('5', '야간 조명', '1'),
+       ('6', '매장이 깨끗해요', '2'),
+       ('7', '에어컨', '1'),
+       ('8', '가격이 합리적이에요', '2'),
+       ('9', '간단한 용품을 팔아요', '2'),
+       ('10', '휴게공간이 있어요', '2'),
+       ('11', '발수코팅건', '1'),
+       ('12', '휴게실', '1');
+# carwash keyword: 1,2,4,5,7,11,12
+# review keyword: 3,6,8,9,10
+
 -- Carwash Data
 INSERT INTO carwash (`id`, `name`, `rate`, `tel`, `des`, `price`, `l_id`, `m_id`)
 VALUES ('1', '전일 카 세차장', 4.2, '062-1234-5678', '광주 제일의 세차장', 10000, '1', '2'),
@@ -353,47 +361,24 @@ VALUES ('1', 1, '1', 0),
        ('9', 1, '5', 0),
        ('10', 2, '5', 1);
 
--- Keyword Data
-INSERT INTO keyword (`id`, `name`, `type`)
-VALUES ('1', '하부세차', '1'),
-       ('2', '개러지형 독립공간', '1'),
-       ('3', '사장님이 친절해요', '2'),
-       ('4', '100% 수돗물', '1'),
-       ('5', '야간 조명', '1'),
-       ('6', '매장이 깨끗해요', '2'),
-       ('7', '에어컨', '1'),
-       ('8', '가격이 합리적이에요', '2'),
-       ('9', '간단한 용품을 팔아요', '2'),
-       ('10', '휴게공간이 있어요', '2'),
-       ('11', '발수코팅건', '1'),
-       ('12', '휴게실', '1');
-
-
+# carwash keyword: 1,2,4,5,7,11,12
 -- CarwashKeyword Data
 INSERT INTO carwash_keyword (`id`, `c_id`, `k_id`)
 VALUES ('1', '1', '1'),
        ('2', '1', '2'),
        ('3', '1', '4'),
        ('4', '2', '1'),
-       ('5', '2', '3'),
+       ('5', '2', '5'),
        ('6', '2', '5'),
        ('7', '3', '2'),
-       ('8', '3', '3'),
+       ('8', '3', '4'),
        ('9', '3', '7'),
        ('10', '4', '1'),
        ('11', '4', '4'),
        ('12', '4', '5'),
        ('13', '5', '1'),
-       ('14', '5', '3'),
+       ('14', '5', '12'),
        ('15', '5', '7');
-
--- ReviewKeyword Data
-INSERT INTO review_keyword (`id`, `r_id`, `k_id`)
-VALUES ('1', '1', '1'),
-       ('2', '1', '6'),
-       ('3', '2', '2'),
-       ('4', '2', '8');
-
 -- Optime Data
 INSERT INTO optime (`id`, `day_type`, `start_time`, `end_time`, `c_id`)
 VALUES ('1', 'WEEKDAY', '09:00:00', '18:00:00', '1'),
@@ -408,22 +393,30 @@ VALUES ('1', 'WEEKDAY', '09:00:00', '18:00:00', '1'),
        ('10', 'WEEKEND', '10:00:00', '19:00:00', '5');
 
 -- Reservation Data
-INSERT INTO reservation (`id`, `price`, `start_time`, `end_time`, `is_deleted`, `b_id`, `m_id`)
-VALUES ('1', 10000, '2023-10-25T10:00:00', '2023-10-25T10:30:00', 0, '1', '1'),
-       ('2', 10000, '2023-10-25T11:00:00', '2023-10-25T11:30:00', 0, '2', '1'),
-       ('3', 9000, '2023-10-26T10:00:00', '2023-10-26T10:30:00', 0, '3', '1'),
-       ('4', 9000, '2023-10-26T11:00:00', '2023-10-26T11:30:00', 0, '4', '1'),
-       ('5', 8500, '2023-10-27T10:00:00', '2023-10-27T10:30:00', 0, '5', '1'),
-       ('6', 8500, '2023-10-27T11:00:00', '2023-10-27T11:30:00', 0, '6', '1'),
-       ('7', 9500, '2023-10-28T10:00:00', '2023-10-28T10:30:00', 0, '7', '1'),
-       ('8', 9500, '2023-10-28T11:00:00', '2023-10-28T11:30:00', 0, '8', '1'),
-       ('9', 12000, '2023-10-29T10:00:00', '2023-10-29T10:30:00', 0, '9', '1'),
-       ('10', 12000, '2023-10-29T11:00:00', '2023-10-29T11:30:00', 0, '10', '1');
+INSERT INTO reservation (`id`, `price`, `start_time`, `end_time`, `is_deleted`, `b_id`, `m_id`, `created_at`, `updated_at`)
+VALUES ('1', 10000, '2023-10-25T10:00:00', '2023-10-25T10:30:00', 0, '1', '1', '2023-10-30 17:19:56.412271', '2023-10-30 17:19:56.412271'),
+       ('2', 10000, '2023-10-25T11:00:00', '2023-10-25T11:30:00', 0, '2', '1', '2023-10-30 17:19:56.412271', '2023-10-30 17:19:56.412271'),
+       ('3', 9000, '2023-10-26T10:00:00', '2023-10-26T10:30:00', 0, '3', '1', '2023-10-30 17:19:56.412271', '2023-10-30 17:19:56.412271'),
+       ('4', 9000, '2023-10-26T11:00:00', '2023-10-26T11:30:00', 0, '4', '1', '2023-10-30 17:19:56.412271', '2023-10-30 17:19:56.412271'),
+       ('5', 8500, '2023-10-27T10:00:00', '2023-10-27T10:30:00', 0, '5', '1', '2023-10-30 17:19:56.412271', '2023-10-30 17:19:56.412271'),
+       ('6', 8500, '2023-10-27T11:00:00', '2023-10-27T11:30:00', 0, '6', '1', '2023-10-30 17:19:56.412271', '2023-10-30 17:19:56.412271'),
+       ('7', 9500, '2023-10-28T10:00:00', '2023-10-28T10:30:00', 0, '7', '1', '2023-10-30 17:19:56.412271', '2023-10-30 17:19:56.412271'),
+       ('8', 9500, '2023-10-28T11:00:00', '2023-10-28T11:30:00', 0, '8', '1', '2023-10-30 17:19:56.412271', '2023-10-30 17:19:56.412271'),
+       ('9', 12000, '2023-10-29T10:00:00', '2023-10-29T10:30:00', 0, '9', '1', '2023-10-30 17:19:56.412271', '2023-10-30 17:19:56.412271'),
+       ('10', 12000, '2023-10-29T11:00:00', '2023-10-29T11:30:00', 0, '10', '1', '2023-10-30 17:19:56.412271', '2023-10-30 17:19:56.412271');
 
 -- Review Data
-INSERT INTO review (`id`, `m_id`, `c_id`, `r_id`, `comment`, `rate`)
-VALUES ('1', '1', '1', '1', '좋은 세차장인것 같습니다.', 4.5),
-       ('2', '1', '2', '3', '가격이 조금 비쌌어요', 4.0);
+INSERT INTO review (`id`, `m_id`, `c_id`, `r_id`, `comment`, `rate`, `created_at`, `updated_at`)
+VALUES ('1', '1', '1', '1', '좋은 세차장인것 같습니다.', 4.5, '2023-10-30 19:19:56.412271', '2023-10-30 19:19:56.412271'),
+       ('2', '1', '2', '3', '가격이 조금 비쌌어요', 4.0, '2023-10-30 19:19:56.412271', '2023-10-30 19:19:56.412271');
+
+# review keyword: 3,6,8,9,10
+-- ReviewKeyword Data
+INSERT INTO review_keyword (`id`, `r_id`, `k_id`)
+VALUES ('1', '1', '3'),
+       ('2', '1', '6'),
+       ('3', '2', '9'),
+       ('4', '2', '8');
 
 -- File Data
 INSERT INTO file (`id`, `name`, `url`, `path`, `uploaded_at`, `c_id`)
